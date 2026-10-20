@@ -1,0 +1,99 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "f0DNc0ShN4SM"
+      },
+      "outputs": [],
+      "source": [
+        "\n",
+        "import ipywidgets as widgets\n",
+        "from IPython.display import display, clear_output\n",
+        "\n",
+        "# Título del formulario\n",
+        "titulo = widgets.HTML(\"<h2>REGISTRO DE PRODUCTOS</h2>\")\n",
+        "\n",
+        "# Campos de entrada\n",
+        "txt_producto = widgets.Text(\n",
+        "    description=\"Producto:\",\n",
+        "    placeholder=\"Escriba el nombre\"\n",
+        ")\n",
+        "\n",
+        "txt_precio = widgets.FloatText(\n",
+        "    description=\"Precio (Bs):\",\n",
+        "    value=0.0\n",
+        ")\n",
+        "\n",
+        "txt_cantidad = widgets.IntText(\n",
+        "    description=\"Cantidad:\",\n",
+        "    value=1\n",
+        ")\n",
+        "\n",
+        "# Botón para registrar\n",
+        "btn_registrar = widgets.Button(\n",
+        "    description=\"Registrar\",\n",
+        "    button_style=\"success\",\n",
+        "    icon=\"check\"\n",
+        ")\n",
+        "\n",
+        "# Área de resultados\n",
+        "salida = widgets.Output()\n",
+        "\n",
+        "# Función para registrar el producto\n",
+        "def registrar_producto(b):\n",
+        "    with salida:\n",
+        "        clear_output(wait=True)\n",
+        "\n",
+        "        producto = txt_producto.value.strip()\n",
+        "        precio = txt_precio.value\n",
+        "        cantidad = txt_cantidad.value\n",
+        "\n",
+        "        if not producto:\n",
+        "            print(\"Error: escriba el nombre del producto.\")\n",
+        "            return\n",
+        "\n",
+        "        if precio < 0 or cantidad <= 0:\n",
+        "            print(\"Error: revise el precio y la cantidad.\")\n",
+        "            return\n",
+        "\n",
+        "        total = precio * cantidad\n",
+        "\n",
+        "        print(\"PRODUCTO REGISTRADO\")\n",
+        "        print(\"------------------------------\")\n",
+        "        print(f\"Producto: {producto}\")\n",
+        "        print(f\"Precio unitario: {precio:.2f} Bs\")\n",
+        "        print(f\"Cantidad: {cantidad}\")\n",
+        "        print(f\"Total: {total:.2f} Bs\")\n",
+        "\n",
+        "# Asociar el botón con la función\n",
+        "btn_registrar.on_click(registrar_producto)\n",
+        "\n",
+        "# Mostrar el formulario\n",
+        "display(\n",
+        "    titulo,\n",
+        "    txt_producto,\n",
+        "    txt_precio,\n",
+        "    txt_cantidad,\n",
+        "    btn_registrar,\n",
+        "    salida\n",
+        ")\n"
+      ]
+    }
+  ]
+}
